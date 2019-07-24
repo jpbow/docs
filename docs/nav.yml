@@ -1,0 +1,173 @@
+- title: Home
+  items:
+    - id: quick-start
+      title: Quick Start
+    - id: what-is-bit
+      title: What Is Bit?
+    - id: example-projects
+      title: Example Projects
+    - id: best-practices
+      title: Best Practices
+    - id: getting-help
+      title: Getting Help
+- title: Getting Started
+  items:
+    - id: installation
+      title: Installing Bit
+    - id: setup-authentication
+      title: Setup Bit.dev Authentication
+    - id: initializing-bit
+      title: Initializing Bit Workspace
+    - id: remote-collection
+      title: Creating a Remote Collection
+    - id: add-and-isolate-components
+      title: Add & Isolate Components
+      subitems:
+      - id: tracking-dependencies
+        title: Tracking Dependencies
+      - id: manage-component-files
+        title: Managing Tracked Files
+    - id: building-components
+      title: Building Components
+    - id: testing-components
+      title: Testing Components
+    - id: tag-component-version
+      title: Versioning Components
+    - id: documenting-components
+      title: Documenting Components
+    - id: organizing-components
+      title: Share Components to Bit.dev
+      subitems:
+        - id: removing-components
+          title: Remove & Deprecate
+    - id: installing-components
+      title: Installing Components with Package Managers
+    - id: sourcing-components
+      title: Sourcing Components
+      subitems:
+      - id: modifying-sourced-components
+        title: Modifying Components
+      - id: update-dependencies
+        title: Updating Dependencies
+      - id: updating-sourced-components
+        title: Fetching Remote Updates
+      - id: merge-changes
+        title: Merging Remote Changes
+- title: Extending Bit
+  items:
+    - id: ext-concepts
+      title: Concepts
+    - id: ext-using-extensions
+      title: Using Extensions
+    - id: ext-developing-extensions
+      title: Developing Extensions
+    - id: ext-compiling
+      title: Compiling
+    - id: ext-testing
+      title: Testing
+- title: Reference
+  items:
+    - id: component-dependencies
+      title: Component Dependencies
+    - id: workspace-statuses
+      title: Workspace Statuses
+    - id: conf-analytics
+      title: Anonymous Usage Analytics
+    - id: bit-on-the-server
+      title: Bit on the Server
+- title: Configuring Bit
+  items:
+    - id: conf-files
+      title: Project Configuration
+    - id: conf-bit-json
+      title: Options
+    - id: conf-config
+      title: CLI Configuration
+- title: Troubleshooting
+  items:
+    - id: latest-version
+      title: Install Bit's Stable Version
+    - id: troubleshooting-doctor
+      title: Troubleshoot with Doctor
+    - id: authentication-issues
+      title: CLI Authentication Issues
+    - id: troubleshooting-isolating
+      title: Isolating Components
+    - id: troubleshooting-install-components
+      title: Installing Components
+    - id: clearing-bit-cache
+      title: Clearing the Bit Cache
+    - id: logs
+      title: Checking Bit's logs
+- title: Bit.dev
+  items:
+    - id: bitsrc-component-ci
+      title: Component CI
+    - id: my-account
+      title: My account
+    - id: bitsrc-plans
+      title: Pricing
+    - id: bitsrc-security
+      title: Security and Data Policy
+    - id: bitdev-permissions
+      title: Dependency Limitations
+- title: CLI Reference
+  items:
+    - id: cli-add
+      title: add
+    - id: cli-build
+      title: build
+    - id: cli-checkout
+      title: checkout
+    - id: cli-clear-cache
+      title: clear-cache
+    - id: cli-config
+      title: config
+    - id: cli-deprecate
+      title: deprecate
+    - id: cli-diff
+      title: diff
+    - id: cli-doctor
+      title: doctor
+    - id: cli-eject
+      title: eject
+    - id: cli-export
+      title: export
+    - id: cli-import
+      title: import
+    - id: cli-install
+      title: install
+    - id: cli-init
+      title: init
+    - id: cli-link
+      title: link
+    - id: cli-list
+      title: list
+    - id: cli-log
+      title: log
+    - id: cli-login
+      title: login
+    - id: cli-logout
+      title: logout
+    - id: cli-merge
+      title: merge
+    - id: cli-move
+      title: move
+    - id: cli-remote
+      title: remote
+    - id: cli-remove
+      title: remove
+    - id: cli-show
+      title: show
+    - id: cli-status
+      title: status      
+    - id: cli-tag
+      title: tag
+    - id: cli-test
+      title: test
+    - id: cli-untag
+      title: untag
+    - id: cli-untrack
+      title: untrack
+    - id: cli-watch
+      title: watch

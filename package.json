@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/teambit/docs#readme",
   "devDependencies": {
-    "docusaurus-init": "^1.0.1",
-    "firebase-tools": "^7.0.2"
+    "docusaurus-init": "^1.12.0",
+    "firebase-tools": "^7.1.1"
   }
 }

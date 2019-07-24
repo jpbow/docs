@@ -4,38 +4,55 @@ title: Angular Tutorial
 sidebar_label: Angular
 ---
 
+# Angular Tutorial
+
 ## Overview
-Bit enables you to share and sync source code components between different repositories and projects. In this tutorial we will share an angular component between two projects located in two different repositories. 
+Bit enables you to share components and sync their source code between different projects that reside in different repositories. 
+In this tutorial we will share an angular component between two projects. 
 
-### What you will need?
+### Prior Knowledge
+This tutorial assumes that you are familiar with: 
 
-In order to run this tutorial you will need 2 projects where you will share the component between. The first project will be an angular store and the other one will be a newly created angular project.
+- Terminal and command line 
+- Using node and npm (or yarn)
+- Angular development and the Angular CLI
+- Git
 
-To run this tutuorial, you will need to clone and setup the angular store project: https://github.com/teambit/angular-store-tutorial
+
+### What you need?
+
+In order to run this tutorial you need two projects to share the component between. The first project is an angular store (see below) and the other one will be a newly created angular project.
+
+To run this tutuorial, clone and setup the angular store project: https://github.com/teambit/angular-store-tutorial
 ```bash
 git clone https://github.com/teambit/angular-store-tutorial
 cd angular-store-tutorial
 npm install
 ```
 
-### What you will learn?  
+### What will you learn?  
 In this tutorial you will learn how to:
 - Setup Bit
-- Export an angular component from an existing project
-- Share the angular component to the bit.dev cloud
-- Preview the exported component on the bit cloud
-- Import the component into another project
-- Update the Angular component on the original project
-- Consume the changed component in the other project
+- Share an angular component from an existing project
+- Preview the exported component on the Bit cloud
+- Install the component in another project
+- Modify the Angular component on the new project
+- Update the changed component in the original project
 
 ## Setup Bit  
 
-First things first, we will need to setup Bit.
+First things first, we need to setup Bit.
 
-### Create a Bit Cloud account and collection
-head over to the Bit cloud(https://bit.dev/) and create your account. Enter your username and password, or use your github credentials. 
-Click on the collections icon on the left pane and create a new collection. You can create a public collection that will be visible for everyone, or you may create a private collection.
-In order to follow the tutorial you will need to capture the username and the collection name, as we will reference them in future commands.
+### Create a Bit Cloud account 
+head over to the Bit cloud(https://bit.dev/) and create your account. Enter a username and password or use your github credentials. 
+**Welcome to Bit!**
+Please remember your username, you will need it later in this tutorial. 
+
+### Create a Bit Collection
+When you are logged into Bit Cloud you can create a collection. The collection is a group of components that are related and can be shared with others. Components in public collections are visible to everyone, while components in private collection are only available to invitees.
+
+Click on the collections icon on the left pane and create a new collection from the top right **New** button. Name the new collection `Tutorial`, and make it private for now. 
+You can create a public collection that will be visible for everyone, or a private one, visible to you and your invitees.
 
 ### Install Bit Cli
 
@@ -43,23 +60,24 @@ Install Bit cli on your computer using npm:
 ```bash
 npm install bit-bin -g
 ```  
-(If you would like to use other installation methods, please visit: [Install Bit](/docs/installing-bit.html) )
+(If you would like to use other installation methods, please visit: [Install Bit](/docs/installing-bit.html))
 If you have already installed Bit, please verify the installation by running the following command:
 ```bash
 $ bit --version
 ```
 
-### Login into Bit Account
-Now you will need to log into your bit account. run from the command line
+### Login into your Bit Account
+Now you need to log into your bit account, from the command line run
 ```bash
 bit login
 ```
-This will open your browser and will login into your account. You are now ready to start using bit.
+This will open your browser and will login into your account. You are now ready to start using Bit.
 As part of the login process, Bit will setup your local configuration. You can see your configuration by typing:
 ```bash
 bit config
 ```
-In addition, bit will add the npm registry used by bit to your npmrc configuration (by default located in `~/.npmrc`).
+In addition, Bit will add the npm registry used by Bit to your npmrc configuration (by default located in `~/.npmrc`).
+
 
 ### Initialize Bit Workspace
 Now go into the angular store project you cloned before and switch to the repository.
@@ -84,19 +102,19 @@ Two other changes will happen:
 
 > These changes should be commited into your version control tool.
 
-## Export an Angular component from the store project
+## Share an Angular Component 
 
 ### Track a new component
 We are going to track the product-list component from the angular project.
 The component will be tracked with the id `product-list`.
 
-We need to tell bit about the component and the files that are related to it. As all the files are located under the product-list directory, the simple way  is to add all the files in the product-list directory to our component. 
-There are two more things we need to tell Bit: 
+You need to tell Bit about the component and the files that are related to it. As all the files are located under the product-list directory, the simple way is to add all the files in the product-list directory to our component. 
+There are two more things you need to tell Bit: 
 
  - The Id of the component that we are tracking
- - The file in the directory which is the entry point to the component. In this case, this is the `product-list.component.ts` file. Here is the full command:
+ - The file in the directory which is the entry point to the component. In our case, this is the `product-list.component.ts` file. Here is the full command:
 ```bash
-bit add src/app/product-list/*.* --id product-list --main src/app/product-list/product-list.component.ts
+bit add src/app/product-list/*.* --id product-list --main src/app/product-list/product-list.module.ts
 ```
 You should expect to see the following message from Bit: 
 ```bash
@@ -115,663 +133,342 @@ Our component is using the `src/app/products.ts` file and Bit will identify the 
 untracked file dependencies (use "bit add <file>" to track untracked files as components):
 src/app/product-list/product-list.component.ts -> src/app/products.ts
 ```
-We will need to add the missing file to our component:
+You will need to add the missing file to the component:
 ```bash
 bit add src/app/products.ts --id product-list
 ```
->  In our case, this file is used only by the product-list component so we can add it to the product-list component. In other cases, however, if this file is used by multiple components, you may want to consider creating `products.ts` file as a separate component that will become a dependancy of other components. 
+>  In this case, this file is used only by the product-list component so you can add it to the product-list component. In other cases, however, if this file is used by multiple components, you may want to consider creating `products.ts` file as a separate component that will become a dependancy of other components. 
 
-Now we can run the status command again. Bit shows us that all the used files are properly tracked: 
+Now you can run the status command again. Bit shows you that all the used files are properly tracked: 
 ```bash
 > app/product-list ... ok
 ```
-### Build the component
-So far, we have provided bit with the source file of the component. But in order to consume the files in other projects, the component needs to be built. In this case, it should be compiled by the Angular compiler. 
+### Install Angular Compiler
+So far, you have provided bit with the source file of the component. But in order to consume the files in other projects, the component needs to be built. In this case, it should be compiled by the Angular compiler. 
 >Bit is storing the source code of the component, but the code should still remain in your version control system (VCS) such as your Git repository. 
 
-Bit has a large collection of compilers that are open sourced and maintained By the Bit Team. In addition, the community is also suggesting compilers that you can use by searching the bit collection. 
-For building the angular component, 
-  
-  
-
-In order to make sure our component is properly isolated, we will need to add the Bit Angular compiler. We will set this compiler
-
-  
-
-In the above
-
-  
-
-
-see troubleshooting at https://docs.bit.dev/docs/troubleshooting-isolating.html
-
-new components
-
-(use "bit tag --all [version]" to lock a version with all your changes)
-
-  
-
-> app/product-list ... ok
-
-➜ angular-store git:(master) ✗
-
-  
-  
-  
-  
-
-### Compiling components
-
-  
-
->  **Why & What are Build environments**
-
->
-
-> A React component needs to be compiled so it can run on a browser.
-
->  **Build** environment is a 'build task` that Bit uses to run and compile the component. To learn more, see [build components](/docs/building-components.html).
-
->
-
-> A *built* component can then be [consumed as a node module](/docs/installing-components-using-package-managers.html) directly from [bit.dev](https://bit.dev) using NPM or Yarn.
-
-  
-
-Bit has multiple build environments and bundlers available for your use, hosted as Bit components in a collection called ["envs"](https://bit.dev/bit/envs).
-
-  
-
-Add an environment by using the [Import](/docs/cli-import.html#import-a-single-component-from-a-remote-scope) command suffixed with the relevant flag. This will ensure all components in your local workspace will have the same environment.
-
-  
-
+Bit has a large collection of compilers that are open sourced and maintained By the Bit team. In addition, the community is also suggesting compilers that you can use by searching Bit collections. 
+For building the angular component, you will need the [angular compiler](link //ToDo). This compiler is based on ng-packagr, which is the tool used by Angular CLI to bundle packages to npm. 
+To install the compiler run this command inside the angular repository: 
 ```bash
-
-$ bit import bit.envs/compilers/react -c
-
-  
-
-the following component environments were installed
-
-- bit.envs/compilers/react@0.0.14
-
+bit import  --compiler //ToDo
 ```
-
-  
-
-To build the `ui/button` component, run the bit build command:
-
-  
-
+An affirmative message will display that the compiler is installed: 
 ```bash
-
-$ bit build ui/button
-
-  
-
-/Users/../tutorial-react/export-button/dist/src/ui/button.js
-
+The following component environments were installed
+ToDo
 ```
+  The angular compiler will now be set as the default compiler for the Bit workspace inside this repository. You can check the package.json and verify that the compiler is installed by locating the following entry in the Bit section: 
+```json
+//Todo
+```
+### Build Angular Component
+Now that the compiler is installed, you want to build the component. Building the component serves two purposes: 
+- Making the component directly consumable by other projects
+- Making sure that the component is all-inclusive and contains all the parts that are required in order to share it with others 
+Right now the component lives inside your project and may consume some dependencies from your project. 
+Bit build is taking place in an isolated environment (nicknamed "capsule"), so it will make sure the component build will succeed on the cloud or in any other project. 
+To build the component, run this command inside your angular project: 
+```bash
+$ bit build product-list
+```
+We should recieve the following message: 
+```bash
+/ToDo
+```
+This is good. Your component was built. 
 
-  
-
-### Tag Component Version
-
-  
-
-Bit has the ability to [lock your components](/docs/versioning-tracked-components.html) state, by using the [bit tag](/docs/cli-tag.html) command (similar to [git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging)). Tagging a component will lock the dependencies of the component, create a version and prepare it for export.
-
-  
-
-If you like it, better put a tag on it!
-
-  
+### Export Component
+With the component properly built, it is now time to share it with the world.  
+Components are versioned according to sematic versioning guidelines. To tag your component run the following command: 
+```bash
+bit tag --all 1.0.0
+```
+This command will tag all the components that are currently staged in Bit. In our case, it is only product-list.  //ToDo
 
 ```bash
-
-$ bit tag ui/button
-
-  
-
 1 components tagged | 1 added, 0 changed, 0 auto-tagged
-
 added components: ui/button@0.0.1
-
 ```
-
-  
-
-After tagging your component, you can check your status:
-
-  
-
+You can also check the status of the component (`bit status`) and you will find the following: 
 ```bash
-
-$ bit status
-
-  
-
 staged components
-
-> ui/button. versions: 0.0.1... ok
-
-  
-
+> product-list. versions: 0.0.1... ok
 ```
+The important thing to notice here is that the component is considered `staged`. That means that it is now ready to be exported. 
 
-  
-
-You can see that the component is now in the staged area. The components in this area are version locked and ready for export.
-
-Before you continue, check that you have a [collection](/docs/scopes-on-bitsrc.html#scopes) ready for the new component you are about to export.
-
-  
-
-### Create Collection
-
-  
-
-To export a component, you need to specify a [collection](/docs/scopes-on-bitsrc.html#scopes) to export your component to.
-
-  
-
-A [collection](/docs/scopes-on-bitsrc.html#scopes) is a remote directory that stores components that you create in order to share and track your components. Other developers can then access your public collection and use your components. You can view a collection example in the [tutorial project collection](https://bit.dev/odedreuveny/example).
-
-  
-
-### Share components
-
-  
-
-You can share components from your project to a collection by using the `bit export` command.
-
-In this example, our [bit.dev](https://bit.dev) username is [wonderwoman](https://bit.dev/wonderwoman) and the collection is [diana](https://bit.dev/wonderwoman/diana):
-
-  
-
+To export the component to your collection use the export command. Specify the name of your collection in the following structure: <username>.<collection>: 
 ```bash
-
-$ bit export wonderwoman.diana
-
-  
-
+$ bit export <username>.tutorial
+```
+On successful execution the following message will be displayed: 
+```bash
 exported 1 components to scope wonderwoman.diana
-
 ```
 
-  
+The component is now visible on your collection on the bit.dev cloud. 
 
-Once the component is exported, you can see it in your collection at [bit.dev](https://bit.dev).
-
-  
-
-If you [check status](/docs/cli-status.html), you can see the component is not displayed.
-
-Bit has created a copy of the component, along with all its dependencies, the component is now hosted in your remote collection.
-
-  
+Checking the status of the component, will no longer display the component as it is now hosted on the remote collection: 
 
 ```bash
-
-$ bit status
-
 nothing to tag or export
-
 ```
 
-  
+The code however, is still available locally. Also, the component is now available for other projects. 
+ 
 
-Go to your [bit.dev.io](https://bit.dev) profile to view your collection and the exported component. Your collection should look like [this](https://bit.dev/odedreuveny/example/ui/button). Your component is now available for other developers to import and use freely.
+## Preview the Angular Component 
 
-  
+You can now go to `https://bit.dev` and log into your account (if you are not logged in yet). 
+Select the collections navigator on the left panel and select collections. 
+Click on your collection and you will see your compoent product-list. 
+You can now click on the product-list and see the component playground. 
 
-## Install Components
 
-  
+## Install Component in Another Project
 
-> Learn more about [Installing Components using Package Managers](/docs/installing-components-using-package-managers.html)
+### Create a New Angular Application
 
-  
+You are now going to create another angular application and use the product-list component. The fastest way to do that is use the Angular CLI to generate a new Application. 
 
-We’ve created a bare [create-react-app](https://github.com/facebookincubator/create-react-app) project for you inside the repo called `import-button`. This is where you're going to consume your newly exported React component.
+If you already have the Angular-cli installed globally you can just run
+```bash
+ng new angular-inventory
+```
+If you do not have the angular-cli installed globally and you do not want to install it, you can use [`npx`](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) to install it temporarily: 
+```bash
+npx --package @angular/cli ng new angular-inventory
+```
+In your terminal, switch to the `angular-inventory` directory. 
 
-  
+### Install the Component in the New Project  
 
-In your terminal, navigate to the `import-Button` project directory and `npm install`:
-
-  
+Now you can use your favorite package installer (npm or yarn) to install the component. 
+The component is stored in the Bit registry, so the full path to the component will be: `@bit/<username>.<collection name>.<component name>`
+Run the install command using npm:
 
 ```bash
-
-$ cd ../import-button
-
-$ npm install # or yarn install
-
+$ npm install npm i @bit/<username>.vue-demo.product-list
+```
+The component is now added to your `package.json`: 
+```
+"dependencies": {
+    "@bit/<username>.vue-demo.product-list": "^1.0.0",
 ```
 
-  
+### Use In your Application
 
-Now you can use npm or yarn in order to install your components.
+You can now use the component in your code as an import. 
+Add it as a component to the top level app component.
 
-  
+Your app.vue file should look like so:
+```vue
+<template>
+  <div id="app">
+    <ProductList />
+  </div>
+</template>
 
-```bash
+<script>
+import ProductList from '@bit/<username>.bit-vue-tutorial.product-list';
 
-$ npm install @bit/wonderwoman.diana.ui.button
-
-```
-
-  
-
-### Use in your project
-
-  
-
-In your code editor open the `src/App.js` file and update the `Import` statement:
-
-  
-
-```js
-
-import  Button  from  '@bit/wonderwoman.diana.ui.button';
-
-```
-
-  
-
-Call the node module:
-
-  
-
-```js
-
-<Button  />
-
-```
-
-  
-
-Your `src/App.js` should look like this:
-
-  
-
-```js
-
-import  React, { Component } from  'react';
-
-import  logo  from  './logo.svg';
-
-import  './App.css';
-
-import  Button  from  '@bit/wonderwoman.diana.ui.button';
-
-  
-
-class  App  extends  Component {
-
-render() {
-
-return (
-
-<div  className="App">
-
-<header  className="App-header">
-
-<img  src={logo}  className="App-logo"  alt="logo"  />
-
-<h1  className="App-title">Welcome to React</h1>
-
-</header>
-
-<p  className="App-intro">
-
-To get started, edit <code>src/App.js</code> and save to reload.
-
-</p>
-
-<Button  />
-
-</div>
-
-);
-
+export default {
+  name: 'app',
+  components: {
+    ProductList
+  }
 }
-
-}
-
-  
-
-export  default  App;
-
+</script>
 ```
 
-  
-
-Run your project:
-
-  
-
+Last, but not least, run your application:
 ```bash
-
-$ npm start
-
+npm run serve
 ```
 
-  
+Voila! you can now see the components list inside the newly created application. 
 
-You can see the button component rendered in your project.
+## Modify Component
+Next, we look at the component (in your new project) and decide to make changes.
 
-  
+### Initialize Bit Workspace
+First, you need to initialize a new Bit workspace (in your new project's root directory). This is similar to what you did in the demo project. 
 
-## Modify Components
-
-  
-
-You can modify the imported React component (`ui/button`) in the consuming project located locally (in this tutorial the `import-button` project), and export it back to the remote collection.
-
-  
-
-### Initialize Bit in the consuming project
-
-  
-
-Bit allows developers to source components into other projects and to either use these components or modify them according to their needs. Sourcing components is done with the [bit import](/docs/cli-import.html) command.
-
-  
-
-In this tutorial the consuming project is the`import-button` project. Initialize Bit in it.
-
-  
-
-```bash
-
+```
 $ bit init
-
-  
-
-successfully initialized an empty bit workspace.
-
 ```
 
-  
+### Import Component
+In the previous step, you installed the component into Bit, but you did not import its code into your project. Now, you are going to **import** your 'product-list' component from your collection.
 
-### Import component
+```
+$ bit import <username>.tutorial/product-list
+```
 
-  
+Once this is completed, the following message should appear:
 
-Use the `bit import` command to source your component to the project.
-
-  
-
-```bash
-
-$ bit import wonderwoman.diana/ui/button --path src/components/ui/button
-
-  
-
-successfully ran npm install at /Users/../tutorial-react/import-button/src/components
-
-  
-
+```
 successfully imported one component
-
-- wonderwoman.diana/ui/button@0.0.1
-
+- added <username>.tutorial/product-list new versions: 1.0.0, currently used version 1.0.0 
 ```
 
-  
-
-Run `npm start` to see that the project renders just the same.
-
-  
-
-```bash
-
-$ npm start
+Your imported component is now located under a newly created 'components' library (located in your root folder -  not your 'src' folder).
 
 ```
-
-  
-
-Open your code editor to view the updated source tree. In your tree you can see a new directory `src\components`, this directory holds the sourced component within its isolated component environment.
-
-  
-
->  **Configurations for Imported Components**
-
->
-
-> To configure the way your project handles imported component's `dist` files, dependencies and packages, please see [here](/docs/conf-bit-json.html).
-
-  
-
-#### How Does it Work
-
-  
-
-After installing a component using npm, use the `bit import`command in your code. Bit identifies the imported component as a `bit component` and replace the component's node module with a symlink to the location of the sourced component.
-
-  
-
-```bash
-
-$ tree node_modules/@bit
-
-  
-
-node_modules/@bit
-
-└── wonderwoman.diana.ui.button -> /Users/../tutorial-react/import-button/src/components
-
-1 directory, 0 files
-
+├───components
+│   ├───product-list
+        ├───components
+            ├───ProductList.vue
 ```
 
-  
+### Modify Component's Source code
 
-Your `import` statement now refers to the sourced component. Every time you use `bit import` in a project, Bit will create a symlink to the component in your node modules directory. You can use absolute `import` statements to use sourced components.
+Open the 'product-list' component in your editor and make add a "View" button next to share "Share" button: 
 
-  
 
-### Modify imported component
+```vue
+<button @click="view">
+   View
+</button>
+```
 
-  
-
-Update the `button.js` component from the **consuming** project (e.g `import-button`) and [export](/docs/cli-export.html) the changed component back to the remote collection you've created.
-
-  
-
-Open your IDE and navigate to the file `src/components/button.js`, update the default properties section of the button to:
-
-  
-
-```js
-
-Button.defaultProps  = {
-
-text:  'Go Diana',
-
-buttonColor:  "rgba(161, 188, 202, 0.34)",
-
-buttonHoverColor:  "rgb(119, 148, 162)"
-
+And the corresponding method to handle the view: 
+```vue
+view(){
+   alert('View!')
 }
-
 ```
 
-  
+Your component's code after modification will look like this:
 
-In your terminal run:
+```vue
+<template>
+    <div>
+        <h2>Products</h2>
+        <template v-for="(product, index ) of products">
+            <div v-bind:key={index}> 
+                <h3>
+                    <a>
+                        {{ product.name }}
+                    </a>
+                </h3>
+                <p v-if="product.description">
+                    Description: {{ product.description }}
+                </p>
+                <button @click="share">
+                    Share
+                </button>
+                <button @click="view">
+                    View
+                </button>
+            </div>
+        </template>
+    </div>
+</template>
 
-  
+<script>
 
-```bash
+import products from '../assets/products';
 
-npm start
+export default {
+  name: 'ProductList',
+  data() {
+    return {products};
+  },
+  methods: {
+      share(){
+          alert('The product has been shared!')
+      },
+      view(){
+          alert('View!')
+      }
+  }
+}
+</script>
 
-```
-
-  
-
->  **Note**
-
->
-
->Changes are not updated on your browser, yet...
-
-  
-
-#### Build your "dist" files to reflect the changes in your source code
-
-  
-
-When modifying an imported component with a build environment, changes you make are not immediately updated, since Bit links your code to the component's `dist` directory and **not** to the source code. To update the component's `dist` rebuild the component using the [bit build](/docs/cli-build.html) command:
-
-  
-
-```bash
-
-$ bit build
-
-  
-
-successfully installed the bit.envs/compilers/react@0.0.14 compiler
-
-wonderwoman.diana/ui/button@0.0.1
-
-/Users/../tutorial-react/import-button/src/components/dist/button.js.map
-
-/Users/../tutorial-react/import-button/src/components/dist/button.js
-
-```
-
-  
-
-Now run:
-
-  
-
-```bash
-
-$ npm start
+<style scope>
+    button + button {
+        margin-left: 10px;
+    }
+</style>
 
 ```
+You can run the application to see the change: 
+![](https://i.imgur.com/IkmuS9H.png)
 
-  
 
-Take a look at your browser and see the changes, as expected!
+### Export the Modified  Component
 
-  
+Now, we are going to export the modified component back to your collection, as a new version, so it will be available for others to use. 
+You can do that as you have write permissions to the collection. If this is done by another user that do not have those permissions, they might need to export the component to their own collection. 
 
-### Tag a new version
+As this component was imported by Bit, it is already tracked and handled by Bit. This is why you do not need to `add` the component, also the compiler is already known. 
 
-  
-
-Now that you have a modification in the source of the component, run the `status` command again, to see that Bit changes the component's state.
-
-  
+Tag the modified component as a new version:
 
 ```bash
-
-$ bit status
-
-modified components
-
-> ui/button ... ok
-
-```
-
-  
-
-A simple `bit tag` command will lock a new version for the component with this change.
-
-  
-
-```bash
-
 $ bit tag --all
-
-  
-
-1 components tagged | 0 added, 1 changed, 0 auto-tagged
-
-changed components: ui/button@0.0.2
-
 ```
-
-  
-
-### Export component
-
-  
-
-To export the component new version, use the `bit export` command again, but now add the flag `--eject`. This flag allows Bit to replace the component node module with the exported version, so that your project will have less code and clutter.
-
-  
+You should expect to see:
 
 ```bash
+1 component(s) tagged
+(use "bit export [collection]" to push these components to a remote")
+(use "bit untag" to unstage versions)
 
-$ bit export wonderwoman.diana ui/button --eject
-
-  
-
-exported 1 components to scope wonderwoman.diana
-
+changed components
+(components that got a version bump)
+     > <tuko>.angular-vue-tutorial/product-list@1.0.1
 ```
 
-  
-
-Open your IDE and see that the component is no longer a part of it, and was added to your project's `package.json` file.
-
-  
-
-Check your collection in [bit.dev](https://bit.dev), you can see that there is a new version for the React component.
-
-  
-
-## Import updated component
-
-  
-
-Now you can use the updated React component, and import it into the `export-button` project. By doing so, you will receive the updates exported to the remote collection into your local project as well.
-  
-In your terminal, go to the `export-button` project:
-
-  
+Export the component to your collection
 
 ```bash
-
-$ cd ../export-button
-
+$ bit export <username>.<collection>
 ```
 
-  
+You should recieve the following message:
 
-Now update your component by re-importing:
+```
+exported 1 components to scope <username>.<collection>
+```
 
-  
+## Update the Component in the Original Project
+Now that a new version of the component exists, you can import the changes back to the original project. 
+
+### Import Changed Component
+
+Open your original project and run bit import to see if any components were changed (this is similar to doing `git pull` to see if the git repository has any changes).
+
+```basg=h
+bit import
+```
+
+You will see that the 'product-list' component was changed and a new version exsits: 
 
 ```bash
-
-$ bit import wonderwoman.diana/ui/button
-
-  
-
 successfully imported one component
-
-- wonderwoman.diana/ui/button@0.0.2
-
+- updated tuko.bit-vue-tutorial/product-list new versions: 1.0.1 
 ```
 
-  
-
-Run the project again, and see that it is renders the updated button:
-
-  
+### Checkout
+Merge the changes of the component to your project.
 
 ```bash
+bit checkout latest <username>.<collection>/product-list 
+```
 
-$ npm start
+Bit will perform a git merge, so the code from the updated component will now be merged into your code. 
+
+You should expect to see:
+
+```bash
+successfully switched <username>.<collection>/product-list to version 1.0.1
+ 
+updated src/assets/products.js 
+updated src/components/ProductList.vue 
 
 ```
+Run the application again to see the changes in our component. 
+
+**That's it! You now have the changes in the component.**

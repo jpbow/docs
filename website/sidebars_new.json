@@ -1,0 +1,45 @@
+{  
+  "docs": {
+    "Getting started": [
+      "overview",
+      "concepts",
+      "installation",
+      "bit-cloud"
+    ],
+    "Tutorials": [
+      "tutorials/react-tutorial",
+      "tutorials/angular-tutorial",
+      "tutorials/vue-tutorial"
+    ],
+    "Components": [
+      "components/organize",
+      "components/playground",
+      "components/lifecycle",
+      "components/tracking",
+      "components/build",
+      "components/test",
+      "components/share",
+      "components/consume",
+      "components/modify",
+      "components/remove"      
+    ],
+    "Guides": [
+      "guides/collections",
+      "guides/versions",
+      "guides/authentication",
+      "guides/server",
+      "guides/registry"
+    ],
+    "APIs": [
+      "apis/cli",
+      "apis/bit-client",
+      "apis/workspace",
+      "apis/compilers",
+      "apis/testers"
+    ],
+    "Help": [
+      "troubleshoot",
+      "support"
+    ]
+  }
+}

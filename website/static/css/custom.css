@@ -1,7 +1,7 @@
 @font-face {
-    font-family: "CircularProBook";
-    src: url(CircularPro-Book.otf);
-  }
+  font-family: "CircularProBook";
+      src: url(CircularPro-Book.otf);
+  } 
   
   /* headlines font */
   @font-face {
@@ -50,7 +50,6 @@ body {
 h1 {
   font-weight: 600;
   font-size: 2em;
-  margin-bottom: 1.2em;
 }
 
 h2 {
@@ -91,14 +90,4 @@ a {
   color: #ffffff;
   margin-left: 10px;
 }
-
-.onPageNav a {
-  font-size: 0.9em;
-  color: $onPageNavFont;
-}
-
-.onPageNav .active {
-  color: $primaryColor;
-}
-
 

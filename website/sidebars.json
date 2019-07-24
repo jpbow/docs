@@ -1,45 +1,26 @@
 {  
   "docs": {
-    "Getting started": [
-      "overview",
-      "concepts",
-      "installation",
-      "bit-cloud"
+    "Basics": [
+      "quick-start",
+      "what-is-bit",
+      "best-practices",
+      "getting-help"
     ],
     "Tutorials": [
+      "tutorials/react",
+      "tutorials/angular",
+      "tutorials/vue",
       "tutorials/react-tutorial",
-      "tutorials/angular-tutorial",
-      "tutorials/vue-tutorial"
+      "tutorials/node-tutorial"
     ],
-    "Components": [
-      "components/organize",
-      "components/playground",
-      "components/lifecycle",
-      "components/tracking",
-      "components/build",
-      "components/test",
-      "components/share",
-      "components/consume",
-      "components/modify",
-      "components/remove"      
+    "Setup": [
+      "installation",
+      "setup-authentication",
+      "init-workspace"
+
     ],
-    "Guides": [
-      "guides/collections",
-      "guides/versions",
-      "guides/authentication",
-      "guides/server",
-      "guides/registry"
-    ],
-    "APIs": [
-      "apis/cli",
-      "apis/bit-client",
-      "apis/workspace",
-      "apis/compilers",
-      "apis/testers"
-    ],
-    "Help": [
-      "troubleshoot",
-      "support"
+    "Support": [
+      "getting-help"
     ]
   }
 }

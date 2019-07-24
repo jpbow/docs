@@ -5,6 +5,19 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "docs/faq-what-is-bit.html",
+        "destination": "docs/what-is-bit.html",
+        "type":301
+      },
+      {
+        "source": "docs/bit-react-tutorial.html",
+        "destination": "docs/tutorials/react.html",
+        "type":301
+      }
+      
     ]
   }
 }

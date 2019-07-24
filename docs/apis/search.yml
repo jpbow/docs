@@ -1,0 +1,296 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+# Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://api.bit.dev/v1/
+  - description: Bit.dev APIs
+    url: TBD
+info:
+  description: |
+    This is The bit.dev APIs.  
+  version: "1.0.0"
+  title: Searchh
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: teambit@bit.dev
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: search
+    description: Bit.dev components search
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+      
+paths:
+  /search:
+    post:
+      tags:
+        - search
+      summary: Search components public collections
+      description: Search components in all collections by advanced criteria
+      operationId: searchComponents
+      requestBody:
+        content: 
+          'application/json': 
+            schema:
+              type: object
+              properties:
+                query: 
+                  type: string
+                  description: The query of values # how is that being approached?  all words? any? fuzzy?
+                offset: 
+                  type: number
+                  description: Offset from initial result in pagination
+                limit: 
+                  type: number
+                  description: Maximum number of returned results
+                  default: 100
+                filters:
+                  type: object
+                  properties:
+                    dependencies: 
+                      type: array
+                      description: package names on which a component depends # all? any? 
+                      items: 
+                        type: string
+                    labels: 
+                      type: array
+                      description: omponent labels describing its functionality, like 'navigation', 'array', 'form elements' or 'utils' # all? any? 
+                      items: 
+                        type: string
+                    size: 
+                      type: object
+                      properties:
+                        min: 
+                          type: number
+                          description: Minimum package size in ????
+                        max:
+                          type: number
+                          description: Maximum package size in ????
+                    tests:
+                      type: boolean
+                      default: false
+                      description: Return only components that have tests
+                    examples:
+                      type: boolean
+                      description: Retunr only components that have examples
+                      default: false
+        
+            examples: 
+              simple: 
+                summary: simple search
+                description: Returns all components that are hero button
+                value: 
+                   queryString: hero button
+              
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Component'
+              example: 
+                id: 5b2a4444a98e96ea12b8d274
+                name: components/hero-button
+                fullName: bit.movie-app/components/hero-button
+                url: https://bit.dev/bit/movie-app/components/hero-button
+                owner: bit
+                collection: movie-app
+                version: 1.0.1
+                description: CTA button for `Hero` featured content
+                downloads: 1866
+                license: mit
+                visibility: public
+                likeCount: 4
+                liked: false
+                buildStatus: pass
+                size:
+                  gzipped: 4635
+                  nonGzipped: 12664
+
+          
+        '400':
+          description: Invalid values
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  schemas:
+    Component:
+      type: object
+      properties:
+        id:
+          type: string
+          description: unique identifier of the component
+        name:
+          type: string
+          description: Short name of the component
+        fullName:
+          type: string
+          description: Complete component name in the format of <ownername>.<collection name>/component name
+        url: 
+          type: string
+          description: URL link to the component object
+        owner: 
+          type: object
+          properties: 
+            name: 
+              type: string
+              description: component's collection owner
+        version: 
+          type: string
+          description: Latest version of component
+        description: 
+          type: string
+          description: The description added to the component
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        petId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+        shipDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Order Status
+          enum:
+            - placed
+            - approved
+            - delivered
+        complete:
+          type: boolean
+          default: false
+      xml:
+        name: Order
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        userStatus:
+          type: integer
+          format: int32
+          description: User Status
+      xml:
+        name: User
+    Tag:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      xml:
+        name: Tag
+    Pet:
+      type: object
+      required:
+        - name
+        - photoUrls
+      properties:
+        id:
+          type: integer
+          format: int64
+        category:
+          $ref: '#/components/schemas/Category'
+        name:
+          type: string
+          example: doggie
+        photoUrls:
+          type: array
+          xml:
+            name: photoUrl
+            wrapped: true
+          items:
+            type: string
+        tags:
+          type: array
+          xml:
+            name: tag
+            wrapped: true
+          items:
+            $ref: '#/components/schemas/Tag'
+        status:
+          type: string
+          description: pet status in the store
+          enum:
+            - available
+            - pending
+            - sold
+      xml:
+        name: Pet
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  requestBodies:
+    Pet:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Pet'
+      description: Pet object that needs to be added to the store
+      required: true
+    UserArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+      description: List of user object
+      required: true
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+          scopes:
+            'write:pets': modify pets in your account
+            'read:pets': read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header

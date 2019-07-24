@@ -1,7 +1,7 @@
 ---
 id: react-tutorial
 title: React Tutorial
-sidebar_label: React
+sidebar_label: React Projects Tutorial
 ---
 
 Bit enables you to share and sync source code components between different SCM repositories and projects.

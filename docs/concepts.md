@@ -4,9 +4,8 @@ title: Bit Concepts
 sidebar_label: Bit Concepts
 ---
 
-## Overview
+## Bit Store
 
-### Distributed Code Management
 In the last decade, the concept of code sharing over distributed systems has become popular when distributed version control systems (DVCS) replaced the older generation of centralized systems. 
 In a centralized system, a central repository exists that aggregate all changes made by all developers into a single "central" repository that serves as the single source of truth. 
 In a distributed system, each developer has a copy of the code with full history and changes. Code modifications (known as changesets) are being pushed and pulled between repositories. It is common, though not necessary, to define a specific copy, usually residing on a server, as the "authority" copy. 
@@ -15,12 +14,11 @@ The most commonly known distributed code management system is Git, where a copy 
 
 ![Distributed version control system](assets/version-control-systems.png)
 
-### Bit Store
 Bit is employing a similar concept of distributed code management when components code can be moved around repositories without specifying the main repository. 
 Bit components are managed in a Bit Store. The Bit store, unlike a Git repository, contains information at a more granular level that is the component. For each component, Bit keeps information about its source code, versions,  dependencies and the tools used for building and testing the component. 
 This level of granularity enables developers to collaborate on specific components and not only on source code files. 
 
-### Bit CLI Tool
+## Bit CLI Tool
 Bit CLI is an [open-source tool](https://github.com/teambit/bit) for managing components inside a workspace and between remote collections. All communications between bit stores is done using bit commands. 
 Bit cli is installed per machine and is storing its configuration in a bit configuration file. Bit cli is also using configurations stored in the git and npm configurations defined on the local machine. 
 
