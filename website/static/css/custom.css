@@ -91,3 +91,11 @@ a {
   color: #ffffff;
   margin-left: 10px;
 }
+
+strong {
+  font-family: $mediumFont;
+}
+
+tbody code {
+  background: transparent;
+}
